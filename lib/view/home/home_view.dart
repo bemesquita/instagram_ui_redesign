@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_ui_redesign/view/home/home_app_bar.dart';
+import 'package:instagram_ui_redesign/view/home/home_bottom_bar.dart';
+import 'package:instagram_ui_redesign/view/home/home_content.dart';
+import 'package:instagram_ui_redesign/view/home/home_fab.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key key}) : super(key: key);
@@ -10,8 +14,13 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-	return Container(
-	   color: Colors.amber,
-	);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: HomeAppBar(),
+      body: HomeContent(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: HomeFabButton(),
+      bottomNavigationBar: HomeBottomNavigation(),
+    );
   }
 }
