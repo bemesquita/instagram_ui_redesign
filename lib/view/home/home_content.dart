@@ -78,7 +78,18 @@ class HomeFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Container(),
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        itemCount: 20,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return Container(
+            padding: EdgeInsets.only(top: 10, bottom: 15),
+            height: 150,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey[500],
+          );
+        },
+      ),
     );
   }
 }
