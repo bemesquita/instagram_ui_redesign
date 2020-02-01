@@ -8,6 +8,18 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return CustomScrollView(
+    //   slivers: <Widget>[
+    //     SliverList(
+    //       delegate: SliverChildListDelegate(
+    //         [HomeLogo(), HomeStories()],
+    //       ),
+    //     ),
+    //     SliverList(
+    //       delegate: SliverChildListDelegate([HomeFeed()]),
+    //     )
+    //   ],
+    // );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -109,9 +121,9 @@ class HomeFeed extends StatelessWidget {
       flex: 1,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        itemCount: 20,
+        itemCount: posts.length,
         itemBuilder: (BuildContext ctxt, int index) {
-          return HomeFeedItem(index: 0);
+          return HomeFeedItem(post: posts[index]);
         },
       ),
     );
@@ -119,36 +131,36 @@ class HomeFeed extends StatelessWidget {
 }
 
 class HomeFeedItem extends StatelessWidget {
-  final int index;
+  final Post post;
 
-  const HomeFeedItem({Key key, @required this.index}) : super(key: key);
+  const HomeFeedItem({Key key, @required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _homeFeedItemHeader(0),
-        _homeFeedItemPicture(),
+        _homeFeedItemHeader(post),
+        _homeFeedItemPicture(post.imageUrl),
         SizedBox(height: 10),
-        _homeFeedItemFooter(),
+        _homeFeedItemFooter(post.likes, post.comments),
         SizedBox(height: 25),
       ],
     );
   }
 
-  Widget _homeFeedItemHeader(int index) {
+  Widget _homeFeedItemHeader(Post post) {
     return Row(
       children: <Widget>[
         Container(
           height: 70,
           child: HomeStoriesItem(
-            imageUrl: 'https://instagram.fcxh3-1.fna.fbcdn.net/v/t51.2885-19/s320x320/15876741_1318579628204478_1074441452697681920_n.jpg?_nc_ht=instagram.fcxh3-1.fna.fbcdn.net&_nc_ohc=oAncVswwHEsAX_8onoB&oh=22293b83e9b6c071f6e146a698bbae82&oe=5EBBAB44',
+            imageUrl: post.userImageUrl,
             hasStories: true,
             bestFriend: false,
           ),
         ),
         SizedBox(width: 2),
-        Text('bernardomesk', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+        Text(post.user, style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5)),
         Expanded(
           flex: 1,
           child: Container(
@@ -191,7 +203,7 @@ class HomeFeedItem extends StatelessWidget {
     );
   }
 
-  Widget _homeFeedItemPicture() {
+  Widget _homeFeedItemPicture(String imageUrl) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: Card(
@@ -201,7 +213,7 @@ class HomeFeedItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Image.network(
-          'https://instagram.fcxh3-1.fna.fbcdn.net/v/t51.2885-15/e35/32528719_226987604559179_7316290112277446656_n.jpg?_nc_ht=instagram.fcxh3-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=vh75qXaYpbAAX8COH6C&oh=40e2263a81963edf0bfce80f59747f67&oe=5EC1E670',
+          imageUrl,
           fit: BoxFit.cover,
           height: 300,
           width: double.maxFinite,
@@ -210,14 +222,14 @@ class HomeFeedItem extends StatelessWidget {
     );
   }
 
-  Widget _homeFeedItemFooter() {
+  Widget _homeFeedItemFooter(String likes, String comments) {
     return Row(
       children: <Widget>[
         IconButton(
           icon: Icon(Instagram.activity),
           onPressed: () {},
         ),
-        Text('131', style: TextStyle(letterSpacing: 0.5)),
+        Text(likes, style: TextStyle(letterSpacing: 0.5)),
         SizedBox(width: 15),
         IconButton(
           icon: Icon(
@@ -226,7 +238,7 @@ class HomeFeedItem extends StatelessWidget {
           ),
           onPressed: () {},
         ),
-        Text('10', style: TextStyle(letterSpacing: 0.5)),
+        Text(comments, style: TextStyle(letterSpacing: 0.5)),
         Expanded(
           flex: 1,
           child: Container(
