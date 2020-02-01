@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/Instagram.ttf
 ///
-/// 
+///
 ///
 import 'package:flutter/widgets.dart';
 
@@ -26,4 +26,6 @@ class Instagram {
   static const IconData profile = const IconData(0xe803, fontFamily: _kFontFam);
   static const IconData search = const IconData(0xe804, fontFamily: _kFontFam);
   static const IconData camera = const IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData collection = const IconData(0xe806, fontFamily: _kFontFam);
+  static const IconData comment = const IconData(0xe807, fontFamily: _kFontFam);
 }
